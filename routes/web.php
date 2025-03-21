@@ -247,7 +247,6 @@ Route::get("/dosenTi",function(){
    Route::get('update',[MahasiswaControler::class,'update']);
    Route::get('delete',[MahasiswaControler::class,'delete']);
    Route::get('select',[MahasiswaControler::class,'select']);
-   Route::get('select-tampil',[MahasiswaControler::class,'selectTampil']);
    Route::get('select-view',[MahasiswaControler::class,'selectView']);
    Route::get('select-where',[MahasiswaControler::class,'selectWhere']);
    Route::get('statement',[MahasiswaControler::class,'statement']);

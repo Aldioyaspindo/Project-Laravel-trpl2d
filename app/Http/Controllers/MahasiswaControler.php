@@ -38,7 +38,7 @@ class MahasiswaControler extends Controller
             [
                 'name'       => 'Muhamad',
                 'nobp'       => '1000',
-                'jurusan'    => 'Teknologi Informasi', // Perbaiki kapitalisasi key
+                'jurusan'    => 'Teknologi Informasi',
                 'prodi'      => 'ANIMASI',
                 'tglahir'    => '2001-01-11',
                 'email'      => 'maldioy@gmail.com',
@@ -79,6 +79,11 @@ class MahasiswaControler extends Controller
         $query = DB::select(
             "SELECT * FROM mahasiswas WHERE prodi=? ORDER BY nobp ASC",['Aldio']);
             return view("akademik.mahasiswapnp",["mhs"=>$query]);
+    }
+
+    public function statement(){
+        $query = DB::delete("TRUNCATE mahasiswas");
+        return "berhasil menghapus table mahasiswa";
     }
 
 
