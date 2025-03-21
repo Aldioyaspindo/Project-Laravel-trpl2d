@@ -243,7 +243,7 @@ Route::get("/dosenTi",function(){
 
    Route::get('insert-sql',[MahasiswaControler::class,'insertSql']);
    Route::get('insert-prepared',[MahasiswaControler::class,'insertPrepared']);
-   Route::get('insert-binding',[MahasiswaControler::class,'isertBinding']);
+   Route::get('insert-binding', [MahasiswaControler::class, 'insertBinding']);
    Route::get('update',[MahasiswaControler::class,'update']);
    Route::get('delete',[MahasiswaControler::class,'delete']);
    Route::get('select',[MahasiswaControler::class,'select']);
