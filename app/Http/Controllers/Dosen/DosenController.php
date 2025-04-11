@@ -3,47 +3,60 @@
 namespace App\Http\Controllers\Dosen;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Dosen;
 
 class DosenController extends Controller
 {
-    public function index()
-    {
-        $dosens = DB::table('dosen')->get();
-        return view('dosens/index',compact('dosens'));
-    }
+        public function cekObjek(){
+            $dosen = new Dosen();
+            dd($dosen);
+        }
 
-    public function create()
-    {
+        public function insert(){
+            $dosen = new Dosen();
+            $dosen -> name = "aldio";
+            $dosen -> nik = "1234543";
+            $dosen -> email = "alsdio@gmail.com";
+            $dosen -> nohp = "12344211";
+            $dosen -> alamat = "Pasbar ni bos";
+            $dosen -> keahlian = "raja java";
+            $dosen -> save();
+            dd($dosen);
+
+        }
+
+        public function massAssignment() // ✅ sesuai dengan route
+        {
+            $dosen = Dosen::create([
+                'name' => "aldio lagi",
+                'nik' => "1232123",
+                'email' => "alsdi1o@gmail.com",
+                'nohp' => "123422211",
+                'alamat' => "Pasbar bos",
+                'keahlian' => "raja ular"
+            ]);
+            dd($dosen);
+        }
+
+        public function update(){
+            $dosen = Dosen::find(2);
+            $dosen -> keahlian = "mobile programing";
+            $dosen -> save();
+            dd($dosen);
+        }
         
-        return view('dosens.create');
-
-    }
-
-    public function store(Request $request)
-    {
+        public function updateWhere(){
+            $dosen = Dosen::where('nohp','12344211')->first();
+            $dosen -> keahlian = "AI";
+            $dosen -> save();
+            dd($dosen);
+        }
         
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'nik' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
-            'nohp' => 'nullable|string|max:255',
-            'alamat' => 'nullable|string|max:255',
-            'keahlian' => 'required|string|max:255',
-        ]);
-
-        DB::table('dosens')->where('id', $id)->([
-        
-            'nama' => $$request->nama,
-            'nik' =>$request->nik,
-            'email' =>$request->email,
-            'nohp' =>$request->nohp,
-            'alamat' =>$request->alamat,
-            'keahlian' =>$request->keahlian,
-            'created_at' =>$request->now(),
-            'upadted_at' =>$request->now()
-        ]);
-
-        redirect()->route('dosens.index');
-        
-    }
+        public function massUpdate(){
+            $dosen = Dosen::where('nohp','12344211')->first()->update([
+                'name' => "Yaspindoo",
+                'keahlian' => "raja python",
+            ]);
+            dd($dosen);
+        }
 }
