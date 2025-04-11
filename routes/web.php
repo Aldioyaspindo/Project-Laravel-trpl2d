@@ -1,14 +1,16 @@
 <?php
 
+use App\Http\Controllers\Dosen\DosenpnpController;
+use App\Http\Controllers\mahasiswa\MahasiswapnpController;
 use App\Http\Controllers\MahasiswaControler;
 use App\Http\Controllers\TeknisiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dosen\DosenController;
 
 // // Default routing
-// Route::get('/', function () {
-//    return view('welcome');
-// });
+Route::get('/', function () {
+   return view('welcome');
+});
 
 // // Route untuk form submission (POST)
 // Route::post('submit', function () {
@@ -200,15 +202,15 @@ Route::get("/mahasiswanilaicontinuebreak2",function(){
 });
 /////////////////////////////////////////////////////////////////////////////////
 //10 maret 2025 ////////////////////////////////////////////////////////////////
-Route::get("/mahasiswaTi",function(){
-   $arrMhs = [
-      'aldio',
-      'yaspindo',
-      'anjay',
-      'navar'
-   ];
-   return view("akademikTi.mahasiswaPnp", ['mhs' =>$arrMhs]);
-});
+// Route::get("/mahasiswaTi",function(){
+//    $arrMhs = [
+//       'aldio',
+//       'yaspindo',
+//       'anjay',
+//       'navar'
+//    ];
+//    return view("akademikTi.mahasiswaPnp", ['mhs' =>$arrMhs]);
+// });
 
 Route::get("/dosenTi",function(){
    $arrDsn = [
@@ -227,7 +229,7 @@ Route::get("/dosenTi",function(){
    })->name('prodi');
 
    /////////////////////////////////
-   Route::get('Dosenct',[DosenController::class,'index']);
+   Route::get('Dosenct',[\App\Http\Controllers\DosenController::class,'index']);
 
    Route::get('Teknisi/create',[TeknisiController::class,'create']);
 
@@ -239,7 +241,7 @@ Route::get("/dosenTi",function(){
 
    Route::put('Teknisi/{id}',[TeknisiController::class,'update']);
 
-   Route::delete('Teknisi/{id}',[DosenController::class,'destroy']);
+   // Route::delete('Teknisi/{id}',[DosenController::class,'destroy']);
 
    Route::get('insert-sql',[MahasiswaControler::class,'insertSql']);
    Route::get('insert-prepared',[MahasiswaControler::class,'insertPrepared']);
@@ -250,3 +252,19 @@ Route::get("/dosenTi",function(){
    Route::get('select-view',[MahasiswaControler::class,'selectView']);
    Route::get('select-where',[MahasiswaControler::class,'selectWhere']);
    Route::get('statement',[MahasiswaControler::class,'statement']);
+
+   // Dosen Table CRUD
+   Route::get('dosen',[DosenpnpController::class, 'index'])->name('dosens.index');
+   Route::get('dosen/create',[DosenpnpController::class, 'create'])->name('dosens.create');
+   Route::post('dosen',[DosenpnpController::class, 'store'])->name('dosens.store');
+   Route::get('dosen/{id}/edit',[DosenpnpController::class, 'edit'])->name('dosens.edit');
+   Route::put('dosen/{id}', [DosenpnpController::class, 'update'])->name('dosens.update');
+   Route::delete('dosen/{id}',[DosenpnpController::class, 'destroy'])->name('dosens.destroy');
+
+   // Mahasiswa Table CRUD
+   Route::get('mahasiswa', [MahasiswapnpController::class, 'index'])->name('mahasiswas.index');
+   Route::get('mahasiswa/create', [MahasiswapnpController::class, 'create'])->name('mahasiswas.create');
+   Route::post('mahasiswa', [MahasiswapnpController::class, 'store'])->name('mahasiswas.store');
+   Route::get('mahasiswa/{id}/edit', [MahasiswapnpController::class, 'edit'])->name('mahasiswas.edit');
+   Route::put('mahasiswa/{id}', [MahasiswapnpController::class, 'update'])->name('mahasiswas.update');
+   Route::delete('mahasiswa/{id}', [MahasiswapnpController::class, 'destroy'])->name('mahasiswas.destroy');

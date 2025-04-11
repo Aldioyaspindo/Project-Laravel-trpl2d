@@ -12,10 +12,10 @@
                            <a class="nav-link" href="/home">Home</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="/mahasiswaTi">Mahasiswa</a>
+                           <a class="nav-link" href="/mahasiswa">Mahasiswa</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="/dosenTi">Dosen</a>
+                           <a class="nav-link" href="/dosen">Dosen</a>
                            </l>
                        <li class="nav-item">
                            <a class="nav-link" href="{{ route('prodi',['jurusan'=>'teknologi informasi','prodi']) }}">Prodi</a>
