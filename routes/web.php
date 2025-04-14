@@ -9,7 +9,7 @@ use App\Http\Controllers\Dosen\DosenController;
 
 // // Default routing
 Route::get('/', function () {
-   return view('welcome');
+   return redirect("/mahasiswa");
 });
 
 // // Route untuk form submission (POST)

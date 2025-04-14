@@ -11,14 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dosens', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('nik')->unique();
-            $table->string('email')->unique();
-            $table->string('nohp')->nullable();
-            $table->string('alamat')->nullable();
-            $table->timestamps();
+        Schema::table('dosens', function (Blueprint $table) {
             $table->softDeletes();
         });
     }
@@ -28,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dosens');
+        Schema::table('dosens', function (Blueprint $table) {
+            $table->dropColumn("deleted_at");
+        });
     }
 };
