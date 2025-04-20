@@ -69,8 +69,7 @@ class MahasiswaControler extends Controller
 
     public function selectView()
     {
-        $query = DB::select(
-            "SELECT * FROM mahasiswas");
+        $query = DB::lates()->paginate(10);
             return view("akademik.mahasiswapnp",["mhs"=>$query]);
     }
 

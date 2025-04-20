@@ -9,7 +9,7 @@ class DosenpnpController extends Controller
 {
     public function index()
     {
-        $dosens = DB::table('dosens')->get();
+        $dosens = DB::table('dosens')->paginate();
         return view('dosens.index', compact('dosens'));
     }
 

@@ -11,7 +11,7 @@ class MahasiswapnpController extends Controller
 {
     public function index()
     {
-        $mahasiswas = DB::table('mahasiswas')->get();
+        $mahasiswas = DB::table('mahasiswas')->paginate(10);
         return view('mahasiswas.index', compact('mahasiswas'));
     }
 
@@ -99,5 +99,11 @@ class MahasiswapnpController extends Controller
     {
         DB::table('mahasiswas')->where('id', $id)->delete();
         return redirect()->route('mahasiswas.index')->with('success', 'Data Berhasil Dihapus');
+    }
+
+    public function selectView()
+    {
+        $dosens = DB::lates()->paginate(10);
+        return view('dosens.index',['dosens'=>$dosens]);
     }
 }
