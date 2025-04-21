@@ -3,53 +3,78 @@
 @section('title', 'Daftar Mahasiswa')
 
 @section('content')
-   <h1>Data Mahasiswa</h1>
-   <a type="button" class="btn btn-success mt-3 mb-3" href="{{ route('mahasiswas.create') }}">Tambah Mahasiswa</a>
+<div class="container" style="margin-top: 5rem;">
 
-   @if(session('success'))
-       <div class="alert alert-success">
-           {{ session('success') }}
-       </div>
-   @endif
+    {{-- Header --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Daftar Mahasiswa</h2>
+        <a type="button" class="btn btn-success" href="{{ route('mahasiswas.create') }}">
+            <i class="fa fa-plus"></i> Tambah Mahasiswa
+        </a>
+    </div>
 
-   <table class="table table-dark">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Nomor BP</th>
-            <th>Jurusan</th>
-            <th>Prodi</th>
-            <th>Tanggal Lahir</th>
-            <th>Email</th>
-            <th>Nomor Handphone</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($mahasiswas as $mahasiswa)
-        <tr>
-            <td>{{ $loop->iteration }}</td> <!-- Nomor urut otomatis -->
-            <td>{{ $mahasiswa->name }}</td>
-            <td>{{ $mahasiswa->nobp }}</td>
-            <td>{{ $mahasiswa->jurusan }}</td>
-            <td>{{ $mahasiswa->prodi }}</td> <!-- Menggunakan 'prodi' kecil -->
-            <td>{{ $mahasiswa->tglahir }}</td>
-            <td>{{ $mahasiswa->email }}</td>
-            <td>{{ $mahasiswa->nohp }}</td>
-            <td>
-                <a class="btn btn-warning" href="{{ route('mahasiswas.edit', $mahasiswa->id) }}">Edit</a>
-                <form action="{{ route('mahasiswas.destroy', $mahasiswa->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-<div class="pagination-container">
-    {{ $mahasiswas -> links() }}
+    {{-- Notifikasi --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    {{-- Tabel Data --}}
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Nomor BP</th>
+                    <th>Jurusan</th>
+                    <th>Prodi</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Email</th>
+                    <th>No. HP</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($mahasiswas as $mahasiswa)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $mahasiswa->name }}</td>
+                    <td>{{ $mahasiswa->nobp }}</td>
+                    <td>{{ $mahasiswa->jurusan }}</td>
+                    <td>{{ $mahasiswa->prodi }}</td>
+                    <td>{{ $mahasiswa->tglahir }}</td>
+                    <td>{{ $mahasiswa->email }}</td>
+                    <td>{{ $mahasiswa->nohp }}</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" href="{{ route('mahasiswas.edit', $mahasiswa->id) }}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <form action="{{ route('mahasiswas.destroy', $mahasiswa->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="9" class="text-center">Tidak ada data mahasiswa.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    {{-- Pagination --}}
+    <div class="d-flex justify-content-center">
+        {{ $mahasiswas->links() }}
+    </div>
+
 </div>
 @endsection
