@@ -15,8 +15,11 @@
                            <a class="nav-link" href="/mahasiswa">Mahasiswa</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="/dosen">Dosen</a>
-                           </l>
+                           <a class="nav-link" href="/dosen">Dosen PNP</a>
+                           </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="/dosenti">Dosen TI PNP</a>
+                           </li>
                        <li class="nav-item">
                            <a class="nav-link" href="{{ route('prodi',['jurusan'=>'teknologi informasi','prodi']) }}">Prodi</a>
                        </li>

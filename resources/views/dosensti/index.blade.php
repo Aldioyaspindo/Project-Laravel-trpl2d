@@ -1,11 +1,11 @@
 @extends('layouts.main')
 @section('title')
-Daftar Dosen
+Daftar Dosen TI
 @endsection
 
 @section('content')
-   <h1>Data Dosen</h1>
-   <a type="button" class="btn btn-success mt-3" href="{{ route('dosens.create') }}">Tambah Dosen</a>
+<h1 class="mt-5">Data Dosen TI</h1>
+<a type="button" class="btn btn-success" href="{{ route('dosensti.create') }}">Tambah Dosen</a>
    
    @if(session('success'))
         <p>{{ session('success') }}</p>
@@ -20,7 +20,7 @@ Daftar Dosen
             <th>Email</th>
             <th>No HP</th>
             <th>Alamat</th>
-            <th>Keahlian</th>
+            <th>Bidang</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -33,10 +33,10 @@ Daftar Dosen
             <td>{{ $dosen->email }}</td>
             <td>{{ $dosen->nohp }}</td>
             <td>{{ $dosen->alamat }}</td>
-            <td>{{ $dosen->keahlian }}</td>
+            <td>{{ $dosen->bidang }}</td>
             <td>
-                <a type="button" class="btn btn-warning" href="{{ route('dosens.edit', $dosen->id) }}">Edit</a>
-                <form action="{{ route('dosens.destroy', $dosen->id) }}" method="POST" style="display:inline;">
+                <a type="button" class="btn btn-warning" href="{{ route('dosensti.edit', $dosen->id) }}">Edit</a>
+                <form action="{{ route('dosensti.destroy', $dosen->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">

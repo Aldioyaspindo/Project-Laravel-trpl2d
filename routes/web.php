@@ -6,6 +6,7 @@ use App\Http\Controllers\MahasiswaControler;
 use App\Http\Controllers\TeknisiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dosen\DosenController;
+use App\Http\Controllers\Dosen\DosentiController;
 
 // // Default routing
 Route::get('/', function () {
@@ -253,13 +254,20 @@ Route::get("/dosenTi",function(){
    Route::get('select-where',[MahasiswaControler::class,'selectWhere']);
    Route::get('statement',[MahasiswaControler::class,'statement']);
 
-   // Dosen Table CRUD
+   // Dosen Table CRUD query bukder
    Route::get('dosen',[DosenpnpController::class, 'index'])->name('dosens.index');
    Route::get('dosen/create',[DosenpnpController::class, 'create'])->name('dosens.create');
    Route::post('dosen',[DosenpnpController::class, 'store'])->name('dosens.store');
    Route::get('dosen/{id}/edit',[DosenpnpController::class, 'edit'])->name('dosens.edit');
    Route::put('dosen/{id}', [DosenpnpController::class, 'update'])->name('dosens.update');
    Route::delete('dosen/{id}',[DosenpnpController::class, 'destroy'])->name('dosens.destroy');
+   // Dosen Table CRUD Eloquent ORM
+   Route::get('dosenti',[DosentiController::class, 'index'])->name('dosensti.index');
+   Route::get('dosenti/create',[DosentiController::class, 'create'])->name('dosensti.create');
+   Route::post('dosenti',[DosentiController::class, 'store'])->name('dosensti.store');
+   Route::get('dosenti/{id}/edit',[DosentiController::class, 'edit'])->name('dosensti.edit');
+   Route::put('dosenti/{id}', [DosentiController::class, 'update'])->name('dosensti.update');
+   Route::delete('dosenti/{id}',[DosentiController::class, 'destroy'])->name('dosensti.destroy');
 
    // Mahasiswa Table CRUD
    Route::get('mahasiswa', [MahasiswapnpController::class, 'index'])->name('mahasiswas.index');
@@ -271,7 +279,8 @@ Route::get("/dosenTi",function(){
 
    
 
-Route::get('cek-objek',[DosenController::class,'cekObjek']);
+Route::get('cek-objek',
+[DosenController::class,'cekObjek']);
 Route::get('insert',[DosenController::class,'insert']);
 Route::get('mass-assignment',[DosenController::class,'massAssignment']);
 Route::get('updatedosen',[DosenController::class,'update']);
