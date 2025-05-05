@@ -7,6 +7,7 @@ use App\Http\Controllers\TeknisiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dosen\DosenController;
 use App\Http\Controllers\Dosen\DosentiController;
+use App\Http\Controllers\PenggunaController;
 
 // // Default routing
 Route::get('/', function () {
@@ -302,3 +303,11 @@ Route::get('soft-delete',[DosenController::class,'softDelete']);
 Route::get('with-trashed',[DosenController::class,'withTrashed']);
 Route::get('restore',[DosenController::class,'restore']);
 Route::get('force-delete',[DosenController::class,'forceDelete']);
+
+// Pengguna Table CRUD
+   Route::get('pengguna', [PenggunaController::class, 'index'])->name('penggunas.index');
+   Route::get('pengguna/create', [PenggunaController::class, 'create'])->name('penggunas.create');
+   Route::post('pengguna/store', [PenggunaController::class, 'store'])->name('penggunas.store');
+   Route::get('pengguna/{id}/edit', [PenggunaController::class, 'edit'])->name('penggunas.edit');
+   Route::put('pengguna/{id}', [PenggunaController::class, 'update'])->name('penggunas.update');
+   Route::delete('pengguna/{id}', [PenggunaController::class, 'destroy'])->name('penggunas.destroy');
