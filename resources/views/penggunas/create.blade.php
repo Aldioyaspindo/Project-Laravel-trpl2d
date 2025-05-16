@@ -20,7 +20,7 @@
         </div>
     @endif
 
-    <form action="{{ route('penggunas.store') }}" method="POST" class="space-y-5">
+    <form action="{{ route('penggunas.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
         @csrf
 
         <div>
@@ -56,6 +56,14 @@
             <label class="block mb-1 font-semibold text-gray-700">No. HP</label>
             <input type="text" name="phone" value="{{ old('phone') }}" class="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-400">
             @error('phone')
+                <small class="text-red-500">{{ $message }}</small>
+            @enderror
+        </div>
+
+        <div>
+            <label class="block mb-1 font-semibold text-gray-700">Upload File (PDF/JPG/PNG)</label>
+            <input type="file" name="file_upload" accept=".pdf, .png, .jpg, .jpeg" class="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-400">
+            @error('file_upload')
                 <small class="text-red-500">{{ $message }}</small>
             @enderror
         </div>

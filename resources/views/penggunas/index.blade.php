@@ -24,6 +24,7 @@
                         <th class="px-6 py-3 font-medium">Nama</th>
                         <th class="px-6 py-3 font-medium">Email</th>
                         <th class="px-6 py-3 font-medium">Telepon</th>
+                        <th class="px-6 py-3 font-medium">Gambar</th>
                         <th class="px-6 py-3 font-medium">Aksi</th>
                     </tr>
                 </thead>
@@ -33,6 +34,14 @@
                             <td class="px-6 py-4">{{ $user->name }}</td>
                             <td class="px-6 py-4">{{ $user->email }}</td>
                             <td class="px-6 py-4">{{ $user->phone }}</td>
+                            <td class="px-6 py-4">
+                                @if ($user->file_upload)
+                                    <img src="{{ asset('storage/' . $user->file_upload) }}" alt="foto" width="200" height="200">
+                                @else
+                                    <span class="text-gray-200">(tidak ada foto)</span>
+                                @endif
+                            </td>
+
                             <td class="px-6 py-4 space-x-2">
                                 <a href="{{ route('penggunas.edit', $user->id) }}"
                                     class="inline-block px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Edit</a>

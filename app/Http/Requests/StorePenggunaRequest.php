@@ -18,6 +18,8 @@ class StorePenggunaRequest extends FormRequest
             'email'    => 'required|email|unique:penggunas,email',
             'phone'    => 'nullable|digits_between:9,13',
             'password' => 'required|min:6|confirmed',
+            'file_upload' => 'required|file|mimes:pdf,jpg,png,jpeg|max:2048',
+
         ];
     }
 
@@ -29,6 +31,9 @@ class StorePenggunaRequest extends FormRequest
             'email.unique'      => 'Email sudah digunakan.',
             'password.required' => 'Password tidak boleh kosong.',
             'password.confirmed'=> 'Konfirmasi password tidak cocok.',
+            'file_upload.required' => 'uload tidak boleh kosong',
+            'file_upload.max'      => 'Ukuran file maksimal 2MB.',
+
         ];
     }
 }

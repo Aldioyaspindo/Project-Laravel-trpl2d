@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengguna;
+// use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StorePenggunaRequest; // Pastikan path-nya betul
 use App\Http\Requests\UpdatePenggunaRequest; // Pastikan path-nya betul
+use Illuminate\Support\Facades\Storage;
 
 class PenggunaController extends Controller
 {
@@ -34,11 +36,19 @@ class PenggunaController extends Controller
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
-
+    
+        if ($request->hasFile('file_upload')) {
+            $file = $request->file('file_upload');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $filename, 'public');
+            $data['file_upload'] = $path;
+        }
+    
         Pengguna::create($data);
-
+    
         return redirect()->route('penggunas.index')->with('success', 'Pengguna berhasil ditambahkan.');
     }
+    
 
     /**
      * Tampilkan form edit pengguna.
@@ -52,23 +62,39 @@ class PenggunaController extends Controller
     /**
      * Update data pengguna.
      */
+
     public function update(UpdatePenggunaRequest $request, $id)
     {
         $pengguna = Pengguna::findOrFail($id);
+        $data = $request->validated();
     
-        // Update data pengguna setelah validasi
-        $pengguna->name = $request->name;
-        $pengguna->email = $request->email;
-        $pengguna->phone = $request->phone;
-    
-        if ($request->filled('password')) {
-            $pengguna->password = Hash::make($request->password);
+        // Jika password diisi, hash dan masukkan ke data
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']); // Jangan update password jika kosong
         }
     
-        $pengguna->save();
+        // Jika ada file baru diupload
+        if ($request->hasFile('file_upload')) {
+            // Hapus file lama jika ada
+            if ($pengguna->file_upload && Storage::disk('public')->exists($pengguna->file_upload)) {
+                Storage::disk('public')->delete($pengguna->file_upload);
+            }
+    
+            // Simpan file baru
+            $file = $request->file('file_upload');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $filename, 'public');
+            $data['file_upload'] = $path;
+        }
+    
+        // Update data ke database
+        $pengguna->update($data);
     
         return redirect()->route('penggunas.index')->with('success', 'Pengguna berhasil diperbarui.');
     }
+    
     
 
     /**
