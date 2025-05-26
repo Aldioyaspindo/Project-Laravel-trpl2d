@@ -100,11 +100,13 @@ class PenggunaController extends Controller
     /**
      * Hapus data pengguna.
      */
-    public function destroy(string $id)
-    {
-        $pengguna = Pengguna::findOrFail($id);
-        $pengguna->delete();
+   public function destroy($id)
+   {
+       $pengguna = Pengguna::findOrFail($id);
+       $pengguna->delete();
 
-        return redirect()->route('penggunas.index')->with('success', 'Pengguna berhasil dihapus.');
-    }
+
+       return redirect()->route('penggunas.index')->with('success', 'Pengguna berhasil dihapus.');
+   }
+
 }

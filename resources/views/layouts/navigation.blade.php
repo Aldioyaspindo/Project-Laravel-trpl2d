@@ -4,20 +4,33 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+               <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <img 
+                            src="{{ asset('images/LogoPoli.png') }}" 
+                            alt="Logo Politeknik Negeri Padang"
+                            class="h-10 w-auto"  {{-- opsional: untuk mengontrol ukuran --}}
+                        >
                     </a>
                 </div>
+
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Book') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('sales.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Sale') }}
+                    </x-nav-link>
+                    @if(auth()->user()->role === "admin")
                     <x-nav-link :href="route('penggunas.index')" :active="request()->routeIs('penggunas.*')">
                         {{ __('Pengguna') }}
                         </x-nav-link>
+                    @endif
                 </div>
             </div>
 

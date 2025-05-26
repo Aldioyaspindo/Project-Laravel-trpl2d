@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Dosen\DosenpnpController;
 use App\Http\Controllers\mahasiswa\MahasiswapnpController;
 use App\Http\Controllers\MahasiswaControler;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\TeknisiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dosen\DosenController;
@@ -237,7 +240,8 @@ Route::get('force-delete',[DosenController::class,'forceDelete']);
    // Route::put('pengguna/{id}', [PenggunaController::class, 'update'])->name('penggunas.update');
    // Route::delete('pengguna/{id}', [PenggunaController::class, 'destroy'])->name('penggunas.destroy');
 
-   
+
+
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -249,12 +253,26 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    }); // ✅ Tambahkan titik koma di sini
+   //  admin route
+   Route::middleware(['auth', 'admin'])->group(function(){
+      Route::resource('penggunas',PenggunaController::class);
+   });
+});
+
 
 Route::middleware('auth')->group(function () {
-   Route::resource('penggunas', PenggunaController::class);
-   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+   
+   Route::resource('penggunas', PenggunaController::class) ->parameters(['pengguna' => 'id']);
+   Route::resource('books', BookController::class);
+   Route::resource('sales', SaleController::class);
 });
 
 require __DIR__.'/auth.php';
