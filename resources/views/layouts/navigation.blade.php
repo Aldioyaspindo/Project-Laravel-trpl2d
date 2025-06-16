@@ -29,7 +29,10 @@
                     @if(auth()->user()->role === "admin")
                     <x-nav-link :href="route('penggunas.index')" :active="request()->routeIs('penggunas.*')">
                         {{ __('Pengguna') }}
-                        </x-nav-link>
+                    </x-nav-link>
+                    <x-nav-link :href="route('todos.index')" :active="request()->routeIs('todos.*')">
+                        {{ __('todo') }}
+                    </x-nav-link>
                     @endif
                 </div>
             </div>

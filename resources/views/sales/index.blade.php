@@ -20,9 +20,9 @@
     @endif
 
     <a href="{{ route('sales.create') }}">➕ Tambah Penjualan Baru</a>
- {{-- <a href="{{ route('sales.reports.index') }}">Laporan Penjualan</a>
+<a href="{{ route('sales.reports.index') }}">Laporan Penjualan</a>
 <a href="{{ route('laporan.penjualan.pdf') }}">Cetak PDF Penjualan</a> 
-<a href="{{ route('laporan.penjualan.excel') }}">Export Excel Penjualan</a> --}}
+<a href="{{ route('laporan.penjualan.excel') }}">Export Excel Penjualan</a>
     <table>
         <thead>
             <tr>

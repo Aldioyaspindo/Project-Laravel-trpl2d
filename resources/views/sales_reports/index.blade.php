@@ -9,7 +9,7 @@
         table { border-collapse: collapse; width: 100%; margin-top: 20px; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         th { background-color: #f4f4f4; }
-        .total { font-weight: bold; background-color: #f9f9f9; }
+        .total { font-weight: bold; background-color: #fef3f2; }
     </style>
 </head>
 <body>
@@ -31,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($salesReports as $index => $report)
+            @forelse ($saleReports as $index => $report)
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $report->sale->book->title }}</td>

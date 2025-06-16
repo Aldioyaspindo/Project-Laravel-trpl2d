@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('dosens', function (Blueprint $table) {
-            // $table->softDeletes();
+        Schema::create('todos', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('dosens', function (Blueprint $table) {
-            // $table->dropColumn("deleted_at");
-        });
+        Schema::dropIfExists('todos');
     }
 };
